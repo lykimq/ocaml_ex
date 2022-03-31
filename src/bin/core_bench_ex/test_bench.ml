@@ -1,12 +1,7 @@
 (**
-   build and run execution:
+   build and run execution for test_bench.ml
    $ dune build
-   or if dune declare as executable (to build as native (.exe) or bytecode (.bc) versions):
-   $ dune exec hello_world
-   
-   - for test_metrics.ml
-   $ dune build
-   $ dune exec -- ./test_metrics.exe
+   $ dune exec -- ./test_bench.exe
 *)
 
 (*
