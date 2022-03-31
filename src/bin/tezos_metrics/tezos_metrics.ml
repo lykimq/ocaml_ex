@@ -1,7 +1,7 @@
 (* https://gitlab.com/nomadic-labs/tezos-metrics/-/blob/master-mainnet/src/main.ml 
 
 $ dune build
-$ dune exec -- ./main.exe --listen-prometheus=9091
+$ dune exec -- ./main.exe --listen-prometheus=9091 (or 9090)
 *)
 
 

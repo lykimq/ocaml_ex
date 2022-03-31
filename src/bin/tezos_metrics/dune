@@ -1,5 +1,5 @@
 (executables
- (names main)
+ (names tezos_metrics)
  (libraries
   core
   core_bench
@@ -11,10 +11,12 @@
   mtime.clock.os
   prometheus
   prometheus-app.unix
-  alcotest
   cohttp-lwt
   cohttp-lwt-unix
   yojson
-  unix)
+  fmt.cli
+  fmt.tty
+  logs.cli
+  logs.fmt)
  (flags
   (:standard -open Lwt.Infix)))
