@@ -1,0 +1,17 @@
+(executables
+ (names test_prometheus)
+ (libraries
+  core
+  core_bench
+  core_unix.command_unix
+  core_unix.time_stamp_counter
+  landmarks
+  metrics-lwt
+  metrics-unix
+  mtime.clock.os
+  prometheus
+  prometheus-app.unix
+  alcotest
+  cohttp-lwt
+  cohttp-lwt-unix
+  unix))

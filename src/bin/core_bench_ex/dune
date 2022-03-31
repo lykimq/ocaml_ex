@@ -1,0 +1,12 @@
+(executables
+ (names test_bench)
+ (libraries
+  core
+  core_bench
+  core_unix.command_unix
+  core_unix.time_stamp_counter
+  alcotest
+  cohttp-lwt
+  cohttp-lwt-unix
+  unix)
+ (flags (:standard)))
