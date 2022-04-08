@@ -42,8 +42,9 @@ let () =
   print_newline ();
 
   (* let's exercise the *1 functions:
-     1000L: mean Latencies for 1000 iterations 
-     5: mean each function running for at least 5 CPU seconds
+     - 10_000: is the n in f_int n (input argument of the function to test)
+     - 1000L: mean Latencies for 1000 iterations 
+     - 5: mean each function running for at least 5 CPU seconds
      note that, it is only testing the functon f_int.
   *)
   let _ = latency1 ~name:"int-1-latency1" 1000L f_int 10_000 in 
