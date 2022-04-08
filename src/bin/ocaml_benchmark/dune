@@ -1,0 +1,7 @@
+(executables
+ (names iter numbers)
+ (libraries benchmark bigarray))
+
+(alias
+ (name examples)
+ (deps iter.exe numbers.exe))
