@@ -1,6 +1,7 @@
 (executables
  (names iter numbers)
- (libraries benchmark bigarray))
+ (libraries benchmark bigarray)
+ (flags (:standard)))
 
 (alias
  (name examples)
