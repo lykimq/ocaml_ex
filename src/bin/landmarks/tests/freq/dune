@@ -1,0 +1,14 @@
+(executable
+ (name freq)
+ (libraries unix landmarks))
+
+(rule
+ (with-stderr-to
+  freq.err
+  (with-stdout-to
+   freq.out
+   (run ./freq.exe))))
+
+(alias
+ (name runtest)
+ (deps freq.err freq.out))

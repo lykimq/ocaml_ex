@@ -1,3 +1,8 @@
+(* dune build
+   dune runtest
+The result in the test.out
+*)
+
 let call = Landmark.register "fib"
 
 (*register: ?id:string -> ?location:string -> string -> landmark 
