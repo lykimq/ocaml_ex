@@ -113,8 +113,20 @@ https://www.brendangregg.com/FlameGraphs/offcpuflamegraphs.html#BlockIO
 
 --- using eBPF profile
 
+--- use speedscope.app
+https://www.speedscope.app/
+https://github.com/jlfwong/speedscope#usage
 
+# https://github.com/jlfwong/speedscope/wiki/Importing-from-perf-(linux)
+Use perf as a tool for profiling and read on speedscope:
 
+$ sudo perf record -a -F 99 -g  ~/ocaml_ex/src/_build/default/bin/profiling_perf/tests.exe > perf.data
+$ sudo perf script -i perf.data > profile.linux-perf.txt -f 
+
+Then use : https://www.speedscope.app/ load the profile.linux-perf.txt file
+
+--- Git of flamegraph 
+https://github.com/brendangregg/FlameGraph
 ---
 $ sudo perf report --stdio
 $ sudo perf report -n
