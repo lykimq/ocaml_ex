@@ -1,0 +1,22 @@
+{
+    "wrappers": [
+        {
+            "name": "orun",
+            "command": "orun -o %{output} -- taskset --cpu-list 5 %{command}"
+        }
+    ],
+    "benchmarks": [
+        {
+            "executable": "ocaml_ex/src/bin/sandmarks/alloc.exe",
+            "name": "alloc",
+            "tags": [
+                "lt_1s"
+            ],
+            "runs": [
+                {
+                    "params": "200_000"
+                }
+            ]
+        }
+    ]
+}

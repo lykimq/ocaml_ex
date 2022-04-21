@@ -1,0 +1,12 @@
+(executables
+ (names alloc)
+ (modes native byte)
+ (modules alloc))
+
+(alias
+ (name buildbench)
+ (deps alloc.exe))
+
+(alias
+ (name bytebench)
+ (deps alloc.bc))

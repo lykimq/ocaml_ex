@@ -1,0 +1,8 @@
+(executables
+ (names tests)
+ (libraries bigarray)
+ (flags (:standard)))
+
+(alias
+ (name tests)
+ (deps tests.exe))
