@@ -125,6 +125,26 @@ $ sudo perf script -i perf.data > profile.linux-perf.txt -f
 
 Then use : https://www.speedscope.app/ load the profile.linux-perf.txt file
 
+- Understand the graph:
+    - Time Order: call stacks are ordered left-to-right in the same order as they
+    are occurred in the input file. 
+    This view is helpful to understand the behavior of an application over time
+
+     + x-axis: represents the "weight" of each stack (most commonly CPU time)
+     + y-axis: shows the stack active at the time of the sample.
+
+    - Left heavy: this view identical stacks are grouped together, regardless of 
+      whether they are recorded sequentially. Then, the stacks are sorted so that
+      the heaviest stack for each parent is on the left -- hence "left heavy".
+      This view is useful for understanding where all the time is going in situations 
+      where there are hundreds of thousands of function calls interleaved between other
+      call stacks.
+
+    - Sandwich: it is a table view in which you can find a list of all functions
+    and their associated times. You can sort by self time or total time. 
+    It's called sandwich view because if you select one of the rows in the table,
+    you can see flamegraphs for all the callers and callees of the selected row.
+    
 --- Git of flamegraph 
 https://github.com/brendangregg/FlameGraph
 ---
