@@ -1,0 +1,26 @@
+(executables
+ (names fork geom_sampler copy)
+ (flags :standard -warn-error -26)
+ (libraries memtrace))
+
+(rule
+ (alias runtest)
+ (action
+  (run ./fork.exe)))
+
+(rule
+ (action
+  (with-stdout-to
+   geom_sampler.out
+   (run ./geom_sampler.exe))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff geom_sampler.expected geom_sampler.out)))
+
+(rule
+ (targets ocamlopt.ctf.copy)
+ (deps copy.exe ocamlopt.ctf)
+ (action
+  (run ./copy.exe ocamlopt.ctf ocamlopt.ctf.copy)))
