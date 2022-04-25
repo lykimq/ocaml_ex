@@ -156,6 +156,18 @@ sudo perf  record -R -- ~/ocaml_ex/src/_build/default/bin/profiling_perf/tests.e
 sudo perf sched latency: summarize scheduler latencies by task, including average and maximum delay
 
 
+-- memtrace is different than perf record
+Memtrace files consists of a sequence of timestamped GC events:
+- allocations
+- promotions and
+- collections
+
+Each allocation event carries a backtrace, captured at 
+
+In memtrace sampling based on time rather than GC behaviour. 
+However, the resulting trace files are similar, as they also consist of a sequence
+of timestamped events with associated backtraces.
+
 
 
 
