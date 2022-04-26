@@ -1,0 +1,4 @@
+(executables
+ (names dump_trace)
+ (public_names memtrace_dump_trace)
+ (libraries memtrace))

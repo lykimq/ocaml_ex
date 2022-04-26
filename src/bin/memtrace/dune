@@ -1,12 +1,16 @@
 (executables
- (names fork geom_sampler copy)
+ (names fork geom_sampler copy trace)
  (flags :standard -warn-error -26)
  (libraries memtrace))
+
+; run fork 
 
 (rule
  (alias runtest)
  (action
   (run ./fork.exe)))
+
+; action for geom_sampler
 
 (rule
  (action
@@ -19,8 +23,44 @@
  (action
   (diff geom_sampler.expected geom_sampler.out)))
 
+; rule for copy
+
 (rule
  (targets ocamlopt.ctf.copy)
  (deps copy.exe ocamlopt.ctf)
  (action
   (run ./copy.exe ocamlopt.ctf ocamlopt.ctf.copy)))
+
+; run trace
+
+(rule
+ (alias runtest)
+ (action
+  (run ./trace.exe)))
+
+; depend on dump_trace.ml execute ocamlopt.ctf
+
+(rule
+ (targets ocamlopt.ctf.txt)
+ (deps bin/dump_trace.exe ocamlopt.ctf)
+ (action
+  (with-stdout-to
+   ./ocamlopt.ctf.txt
+   (run bin/dump_trace.exe ocamlopt.ctf))))
+
+; using dump_trace to run the ocamlopt.cpf.copy
+; generate a new file ocamlopt.ctf.copy.txt
+
+(rule
+ (targets ocamlopt.ctf.copy.txt)
+ (deps bin/dump_trace.exe ocamlopt.ctf.copy)
+ (action
+  (with-stdout-to
+   ./ocamlopt.ctf.copy.txt
+   (run bin/dump_trace.exe ocamlopt.ctf.copy))))
+
+(rule
+ (alias runtest)
+ (deps ocamlopt.ctf.txt ocamlopt.ctf.copy.txt)
+ (action
+  (diff ocamlopt.ctf.txt ocamlopt.ctf.copy.txt)))
