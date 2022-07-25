@@ -1,0 +1,41 @@
+[
+  [
+    "This file is generated; do not edit it"
+  ],
+  {
+    "env": "(_ (flags (:standard -w +a-4-40-41-42-44-45-48-70-53-33 -warn-error -a)))"
+  },
+  {
+    "kind": "library",
+    "name": "factori_types",
+    "modules": [
+      "factori_types"
+    ],
+    "libraries": [
+      "zarith",
+      "tzfunc"
+    ]
+  },
+  {
+    "kind": "library",
+    "name": "blockchain",
+    "modules": [
+      "blockchain"
+    ],
+    "libraries": [
+      "tzfunc"
+    ]
+  },
+  {
+    "kind": "library",
+    "name": "utils",
+    "modules": [
+      "utils"
+    ],
+    "libraries": [
+      "tzfunc",
+      "blockchain",
+      "ez_file"
+    ]
+  }
+]

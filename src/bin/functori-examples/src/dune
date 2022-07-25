@@ -1,0 +1,5 @@
+(library
+ (name perfect_number)
+ (modules perfect_number)
+ (preprocess
+  (pps mligo.ppx)))

@@ -1,0 +1,58 @@
+{ parameter int ;
+  storage int ;
+  code { UNPAIR ;
+         DUP ;
+         DIG 2 ;
+         COMPARE ;
+         LT ;
+         IF { DUP ;
+              PUSH int 1 ;
+              DUP 3 ;
+              PUSH int 0 ;
+              PAIR 3 ;
+              LEFT int ;
+              LOOP_LEFT
+                { UNPAIR 3 ;
+                  PUSH int 2 ;
+                  DUP 3 ;
+                  EDIV ;
+                  IF_NONE { PUSH string "DIV by 0" ; FAILWITH } {} ;
+                  CAR ;
+                  DUP 4 ;
+                  COMPARE ;
+                  GT ;
+                  IF { SWAP ; DIG 2 ; DROP 2 ; RIGHT (pair int int int) }
+                     { PUSH nat 0 ;
+                       DUP 4 ;
+                       DUP 4 ;
+                       EDIV ;
+                       IF_NONE { PUSH string "MOD by 0" ; FAILWITH } {} ;
+                       CDR ;
+                       COMPARE ;
+                       EQ ;
+                       IF { PUSH int 1 ; DUP 4 ; ADD ; DUG 2 ; DIG 3 ; ADD }
+                          { PUSH int 1 ; DIG 3 ; ADD ; DUG 2 } ;
+                       PAIR 3 ;
+                       LEFT int } } ;
+              COMPARE ;
+              EQ ;
+              IF { SOURCE ;
+                   PUSH string "Source address not found." ;
+                   SWAP ;
+                   CONTRACT unit ;
+                   IF_NONE { FAILWITH } { SWAP ; DROP } ;
+                   PUSH mutez 2000 ;
+                   UNIT ;
+                   TRANSFER_TOKENS ;
+                   SWAP ;
+                   NIL operation ;
+                   DIG 2 ;
+                   CONS ;
+                   PAIR }
+                 { DROP ;
+                   PUSH string "The number you provided it not a perfect number." ;
+                   FAILWITH } }
+            { DROP ;
+              PUSH string "The number you provided is smaller than the current perfect number." ;
+              FAILWITH } } }
+

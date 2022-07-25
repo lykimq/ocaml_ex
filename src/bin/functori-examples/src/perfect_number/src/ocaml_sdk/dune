@@ -1,0 +1,4 @@
+(library
+(name pn_ocaml_interface)
+(modules pn_code pn_ocaml_interface)
+(libraries factori_types blockchain tzfunc ez_api.icurl_lwt lwt.unix))

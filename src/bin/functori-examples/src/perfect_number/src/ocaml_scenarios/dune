@@ -1,0 +1,7 @@
+(env (dev
+    (flags (:standard -w -33))))
+
+(executable
+(name scenario)
+(modules scenario)
+(libraries pn_ocaml_interface blockchain utils ez_api.icurl_lwt lwt.unix))

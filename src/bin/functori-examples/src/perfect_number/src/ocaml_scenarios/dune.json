@@ -1,0 +1,19 @@
+[
+  {
+    "env": "(dev\n    (flags (:standard -w -33)))"
+  },
+  {
+    "kind": "executable",
+    "name": "scenario",
+    "modules": [
+      "scenario"
+    ],
+    "libraries": [
+      "pn_ocaml_interface",
+      "blockchain",
+      "utils",
+      "ez_api.icurl_lwt",
+      "lwt.unix"
+    ]
+  }
+]
