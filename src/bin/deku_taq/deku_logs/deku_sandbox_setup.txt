@@ -1,0 +1,768 @@
+[35m[1m**************************    Running in local mode    ********************************[0m
+[35m[1m**************************    Configuring Tezos client    ********************************[0m
+Node is bootstrapped.
+Tezos address added: tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
+[35m[1m**************************    Create the bootstrapper identity    ********************************[0m
+[35m[1m**************************    Creating validator identities    ********************************[0m
+[35m[1m**************************    Deploying new consensus contract    ********************************[0m
+Originating consensus contract
+Node is bootstrapped.
+Estimated gas: 2554.875 units (will add 100 for safety)
+Estimated storage: 4611 bytes added (will add 20 for safety)
+Operation successfully injected in the node.
+Operation hash is 'oomo9z6Yr7rGAPVVitYQqj4fvSrvADPB4VaoiWnnkoyNneEybLA'
+Waiting for the operation to be included...
+Operation found in block: BMbUeyRgeVvAXrd4F2mvRnPaXYj6NbZMGDxaa1C4Xvz9VRBqKE6 (pass: 3, offset: 0)
+This sequence of operations was run:
+  Manager signed operations:
+    From: tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
+    Fee to the baker: ꜩ0.004814
+    Expected counter: 3
+    Gas limit: 2655
+    Storage limit: 4631 bytes
+    Balance updates:
+      tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb ... -ꜩ0.004814
+      payload fees(the block proposer) ....... +ꜩ0.004814
+    Origination:
+      From: tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
+      Credit: ꜩ0
+      Script:
+        { parameter
+            (or (or (pair %deposit (key_hash %address) (ticket %ticket bytes))
+                    (pair %update_root_hash
+                       (pair (pair (int %block_height) (bytes %block_payload_hash))
+                             (pair (list %current_validator_keys (option key)) (bytes %handles_hash)))
+                       (pair (pair (list %signatures (option signature)) (bytes %state_hash))
+                             (list %validators key_hash))))
+                (pair %withdraw
+                   (pair (contract %callback (ticket bytes))
+                         (pair %handle
+                            (pair (pair (nat %amount) (bytes %data)) (pair (nat %id) (address %owner)))
+                            (address %ticketer)))
+                   (pair (bytes %handles_hash) (list %proof (pair bytes bytes))))) ;
+          storage
+            (pair (pair %root_hash
+                     (pair (pair (bytes %current_block_hash) (int %current_block_height))
+                           (pair (bytes %current_handles_hash) (bytes %current_state_hash)))
+                     (list %current_validators key_hash))
+                  (pair %vault
+                     (pair (big_map %known_handles_hash bytes unit) (big_map %used_handles nat unit))
+                     (big_map %vault (pair address bytes) (ticket bytes)))) ;
+          code { LAMBDA
+                   (pair string bool)
+                   unit
+                   { UNPAIR ; SWAP ; NOT ; IF { FAILWITH } { DROP ; UNIT } } ;
+                 SWAP ;
+                 UNPAIR ;
+                 SWAP ;
+                 UNPAIR ;
+                 DIG 2 ;
+                 IF_LEFT
+                   { IF_LEFT
+                       { DIG 3 ;
+                         DROP ;
+                         DIG 2 ;
+                         UNPAIR ;
+                         UNPAIR ;
+                         DIG 3 ;
+                         CDR ;
+                         READ_TICKET ;
+                         UNPAIR ;
+                         SWAP ;
+                         CAR ;
+                         DIG 5 ;
+                         NONE (ticket bytes) ;
+                         DUP 3 ;
+                         DUP 5 ;
+                         PAIR ;
+                         GET_AND_UPDATE ;
+                         IF_NONE
+                           { DIG 3 ; PAIR }
+                           { DIG 4 ;
+                             SWAP ;
+                             PAIR ;
+                             JOIN_TICKETS ;
+                             IF_NONE { DROP ; PUSH string "unreachable" ; FAILWITH } { PAIR } } ;
+                         UNPAIR ;
+                         DIG 2 ;
+                         DIG 3 ;
+                         PAIR ;
+                         SWAP ;
+                         SOME ;
+                         SWAP ;
+                         UPDATE ;
+                         DUG 2 ;
+                         PAIR ;
+                         PAIR ;
+                         SWAP ;
+                         PAIR ;
+                         NIL operation ;
+                         PAIR }
+                       { DUP ;
+                         CDR ;
+                         CDR ;
+                         PACK ;
+                         BLAKE2B ;
+                         SWAP ;
+                         DUP ;
+                         DUG 2 ;
+                         CDR ;
+                         CAR ;
+                         CDR ;
+                         DUP 3 ;
+                         CAR ;
+                         CDR ;
+                         CDR ;
+                         PAIR ;
+                         DUP 3 ;
+                         CAR ;
+                         CAR ;
+                         CDR ;
+                         DUP 4 ;
+                         CAR ;
+                         CAR ;
+                         CAR ;
+                         PAIR ;
+                         PAIR ;
+                         PAIR ;
+                         PACK ;
+                         BLAKE2B ;
+                         SWAP ;
+                         DUP ;
+                         DUG 2 ;
+                         CAR ;
+                         CAR ;
+                         CAR ;
+                         DUP 4 ;
+                         CAR ;
+                         CAR ;
+                         CDR ;
+                         SWAP ;
+                         DUP ;
+                         DUG 2 ;
+                         COMPARE ;
+                         GT ;
+                         PUSH string "old block height" ;
+                         PAIR ;
+                         DIG 6 ;
+                         SWAP ;
+                         EXEC ;
+                         DROP ;
+                         PUSH int 3 ;
+                         PUSH int 2 ;
+                         DUP 6 ;
+                         CDR ;
+                         SIZE ;
+                         INT ;
+                         MUL ;
+                         EDIV ;
+                         IF_NONE { PUSH string "DIV by 0" ; FAILWITH } {} ;
+                         CAR ;
+                         DUP 3 ;
+                         PAIR ;
+                         DUP 4 ;
+                         CDR ;
+                         CAR ;
+                         CAR ;
+                         DUP 5 ;
+                         CAR ;
+                         CDR ;
+                         CAR ;
+                         PAIR ;
+                         PAIR ;
+                         LEFT unit ;
+                         LOOP_LEFT
+                           { UNPAIR ;
+                             UNPAIR ;
+                             DIG 2 ;
+                             UNPAIR ;
+                             DIG 3 ;
+                             DIG 3 ;
+                             IF_CONS
+                               { DUP ;
+                                 IF_NONE
+                                   { DUP 3 ;
+                                     IF_CONS
+                                       { IF_NONE
+                                           { SWAP ;
+                                             DIG 3 ;
+                                             DROP 2 ;
+                                             DIG 3 ;
+                                             DIG 3 ;
+                                             PAIR ;
+                                             SWAP ;
+                                             DIG 2 ;
+                                             PAIR ;
+                                             PAIR ;
+                                             LEFT unit }
+                                           { DROP 2 ;
+                                             IF_NONE
+                                               { SWAP ;
+                                                 IF_CONS
+                                                   { DROP ; DIG 3 ; DIG 3 ; PAIR ; SWAP ; DIG 2 ; PAIR ; PAIR ; LEFT unit }
+                                                   { DROP 3 ;
+                                                     PUSH string "validators and signatures have different size" ;
+                                                     FAILWITH } }
+                                               { DROP 5 ;
+                                                 PUSH string "validators and signatures have different size" ;
+                                                 FAILWITH } } }
+                                       { IF_NONE
+                                           { SWAP ;
+                                             IF_CONS
+                                               { DROP ; DIG 3 ; DIG 3 ; PAIR ; SWAP ; DIG 2 ; PAIR ; PAIR ; LEFT unit }
+                                               { DROP 3 ;
+                                                 PUSH string "validators and signatures have different size" ;
+                                                 FAILWITH } }
+                                           { DROP 5 ;
+                                             PUSH string "validators and signatures have different size" ;
+                                             FAILWITH } } }
+                                   { DUP 4 ;
+                                     IF_CONS
+                                       { IF_NONE
+                                           { DROP 2 ;
+                                             DUP 3 ;
+                                             IF_CONS
+                                               { IF_NONE
+                                                   { SWAP ;
+                                                     DIG 3 ;
+                                                     DROP 2 ;
+                                                     DIG 3 ;
+                                                     DIG 3 ;
+                                                     PAIR ;
+                                                     SWAP ;
+                                                     DIG 2 ;
+                                                     PAIR ;
+                                                     PAIR ;
+                                                     LEFT unit }
+                                                   { DROP 2 ;
+                                                     IF_NONE
+                                                       { SWAP ;
+                                                         IF_CONS
+                                                           { DROP ; DIG 3 ; DIG 3 ; PAIR ; SWAP ; DIG 2 ; PAIR ; PAIR ; LEFT unit }
+                                                           { DROP 3 ;
+                                                             PUSH string "validators and signatures have different size" ;
+                                                             FAILWITH } }
+                                                       { DROP 5 ;
+                                                         PUSH string "validators and signatures have different size" ;
+                                                         FAILWITH } } }
+                                               { IF_NONE
+                                                   { SWAP ;
+                                                     IF_CONS
+                                                       { DROP ; DIG 3 ; DIG 3 ; PAIR ; SWAP ; DIG 2 ; PAIR ; PAIR ; LEFT unit }
+                                                       { DROP 3 ;
+                                                         PUSH string "validators and signatures have different size" ;
+                                                         FAILWITH } }
+                                                   { DROP 5 ;
+                                                     PUSH string "validators and signatures have different size" ;
+                                                     FAILWITH } } }
+                                           { DIG 3 ;
+                                             DIG 5 ;
+                                             DROP 2 ;
+                                             DUP 5 ;
+                                             SWAP ;
+                                             DIG 3 ;
+                                             CHECK_SIGNATURE ;
+                                             IF { PUSH int 1 ;
+                                                  DIG 4 ;
+                                                  SUB ;
+                                                  DIG 3 ;
+                                                  PAIR ;
+                                                  SWAP ;
+                                                  DIG 2 ;
+                                                  PAIR ;
+                                                  PAIR ;
+                                                  LEFT unit }
+                                                { DROP 4 ; PUSH string "bad signature" ; FAILWITH } } }
+                                       { DROP ;
+                                         DUP 3 ;
+                                         IF_CONS
+                                           { IF_NONE
+                                               { SWAP ;
+                                                 DIG 3 ;
+                                                 DROP 2 ;
+                                                 DIG 3 ;
+                                                 DIG 3 ;
+                                                 PAIR ;
+                                                 SWAP ;
+                                                 DIG 2 ;
+                                                 PAIR ;
+                                                 PAIR ;
+                                                 LEFT unit }
+                                               { DROP 2 ;
+                                                 IF_NONE
+                                                   { SWAP ;
+                                                     IF_CONS
+                                                       { DROP ; DIG 3 ; DIG 3 ; PAIR ; SWAP ; DIG 2 ; PAIR ; PAIR ; LEFT unit }
+                                                       { DROP 3 ;
+                                                         PUSH string "validators and signatures have different size" ;
+                                                         FAILWITH } }
+                                                   { DROP 5 ;
+                                                     PUSH string "validators and signatures have different size" ;
+                                                     FAILWITH } } }
+                                           { IF_NONE
+                                               { SWAP ;
+                                                 IF_CONS
+                                                   { DROP ; DIG 3 ; DIG 3 ; PAIR ; SWAP ; DIG 2 ; PAIR ; PAIR ; LEFT unit }
+                                                   { DROP 3 ;
+                                                     PUSH string "validators and signatures have different size" ;
+                                                     FAILWITH } }
+                                               { DROP 5 ;
+                                                 PUSH string "validators and signatures have different size" ;
+                                                 FAILWITH } } } } }
+                               { SWAP ;
+                                 DROP ;
+                                 IF_CONS
+                                   { DROP 3 ;
+                                     PUSH string "validators and signatures have different size" ;
+                                     FAILWITH }
+                                   { PUSH int 0 ;
+                                     SWAP ;
+                                     COMPARE ;
+                                     GT ;
+                                     IF { PUSH string "not enough key-signature matches" ; FAILWITH }
+                                        { UNIT ;
+                                          RIGHT (pair (pair (list (option key)) (list (option signature))) (pair bytes int)) } } } } ;
+                         DROP ;
+                         PUSH int 3 ;
+                         PUSH int 2 ;
+                         DUP 6 ;
+                         CDR ;
+                         SIZE ;
+                         INT ;
+                         MUL ;
+                         EDIV ;
+                         IF_NONE { PUSH string "DIV by 0" ; FAILWITH } {} ;
+                         CAR ;
+                         DUP 3 ;
+                         PAIR ;
+                         DIG 4 ;
+                         CDR ;
+                         DUP 5 ;
+                         CAR ;
+                         CDR ;
+                         CAR ;
+                         PAIR ;
+                         PAIR ;
+                         LEFT unit ;
+                         LOOP_LEFT
+                           { UNPAIR ;
+                             UNPAIR ;
+                             DIG 2 ;
+                             UNPAIR ;
+                             DIG 3 ;
+                             DIG 3 ;
+                             IF_CONS
+                               { IF_NONE
+                                   { SWAP ;
+                                     IF_CONS
+                                       { DROP ; DIG 3 ; DIG 3 ; PAIR ; SWAP ; DIG 2 ; PAIR ; PAIR ; LEFT unit }
+                                       { DROP 3 ;
+                                         PUSH string "validator_keys and validators have different size" ;
+                                         FAILWITH } }
+                                   { DIG 2 ;
+                                     IF_CONS
+                                       { DIG 2 ;
+                                         HASH_KEY ;
+                                         COMPARE ;
+                                         EQ ;
+                                         IF { PUSH int 1 ;
+                                              DIG 4 ;
+                                              SUB ;
+                                              DIG 3 ;
+                                              PAIR ;
+                                              SWAP ;
+                                              DIG 2 ;
+                                              PAIR ;
+                                              PAIR ;
+                                              LEFT unit }
+                                            { DROP 4 ;
+                                              PUSH string "validator_key does not match validator hash" ;
+                                              FAILWITH } }
+                                       { DROP 4 ;
+                                         PUSH string "validator_keys and validators have different size" ;
+                                         FAILWITH } } }
+                               { SWAP ;
+                                 DROP ;
+                                 IF_CONS
+                                   { DROP 3 ;
+                                     PUSH string "validator_keys and validators have different size" ;
+                                     FAILWITH }
+                                   { PUSH int 0 ;
+                                     SWAP ;
+                                     COMPARE ;
+                                     GT ;
+                                     IF { PUSH string "not enough keys" ; FAILWITH }
+                                        { UNIT ; RIGHT (pair (pair (list (option key)) (list key_hash)) (pair bytes int)) } } } } ;
+                         DROP ;
+                         DUP 3 ;
+                         CDR ;
+                         CDR ;
+                         DUP 4 ;
+                         CDR ;
+                         CAR ;
+                         CDR ;
+                         DIG 4 ;
+                         CAR ;
+                         CDR ;
+                         CDR ;
+                         PAIR ;
+                         DIG 2 ;
+                         DIG 3 ;
+                         PAIR ;
+                         PAIR ;
+                         PAIR ;
+                         SWAP ;
+                         UNPAIR ;
+                         UNPAIR ;
+                         UNIT ;
+                         DUP 5 ;
+                         CAR ;
+                         CDR ;
+                         CAR ;
+                         SWAP ;
+                         SOME ;
+                         SWAP ;
+                         UPDATE ;
+                         PAIR ;
+                         PAIR ;
+                         SWAP ;
+                         PAIR ;
+                         NIL operation ;
+                         PAIR } }
+                   { DUP ;
+                     CDR ;
+                     CAR ;
+                     SWAP ;
+                     DUP ;
+                     DUG 2 ;
+                     CAR ;
+                     CDR ;
+                     DIG 4 ;
+                     UNPAIR ;
+                     UNPAIR ;
+                     DUP ;
+                     DUP 6 ;
+                     MEM ;
+                     PUSH string "unknown handles hash" ;
+                     PAIR ;
+                     DUP 9 ;
+                     SWAP ;
+                     EXEC ;
+                     DROP ;
+                     SWAP ;
+                     DUP ;
+                     DUG 2 ;
+                     DUP 5 ;
+                     CAR ;
+                     CDR ;
+                     CAR ;
+                     MEM ;
+                     NOT ;
+                     PUSH string "already used handle" ;
+                     PAIR ;
+                     DUP 9 ;
+                     SWAP ;
+                     EXEC ;
+                     DROP ;
+                     SENDER ;
+                     DUP 5 ;
+                     CAR ;
+                     CDR ;
+                     CDR ;
+                     COMPARE ;
+                     EQ ;
+                     PUSH string "only the owner can withdraw a handle" ;
+                     PAIR ;
+                     DUP 9 ;
+                     SWAP ;
+                     EXEC ;
+                     DROP ;
+                     DUP 6 ;
+                     CDR ;
+                     CDR ;
+                     PUSH int 1 ;
+                     SWAP ;
+                     DUP ;
+                     DUG 2 ;
+                     SIZE ;
+                     INT ;
+                     SUB ;
+                     DIG 6 ;
+                     DUG 2 ;
+                     PAIR ;
+                     PAIR ;
+                     LEFT unit ;
+                     LOOP_LEFT
+                       { UNPAIR ;
+                         UNPAIR ;
+                         SWAP ;
+                         IF_CONS
+                           { UNPAIR ;
+                             SWAP ;
+                             DUP ;
+                             DUG 2 ;
+                             SWAP ;
+                             DUP ;
+                             DUG 2 ;
+                             CONCAT ;
+                             BLAKE2B ;
+                             DIG 5 ;
+                             COMPARE ;
+                             EQ ;
+                             PUSH string "invalid proof hash" ;
+                             PAIR ;
+                             DUP 12 ;
+                             SWAP ;
+                             EXEC ;
+                             DROP ;
+                             PUSH nat 0 ;
+                             DUP 9 ;
+                             CAR ;
+                             CDR ;
+                             CAR ;
+                             DUP 6 ;
+                             ABS ;
+                             PUSH nat 1 ;
+                             LSL ;
+                             AND ;
+                             COMPARE ;
+                             NEQ ;
+                             IF { DROP } { SWAP ; DROP } ;
+                             SWAP ;
+                             PUSH int 1 ;
+                             DIG 3 ;
+                             SUB ;
+                             PAIR ;
+                             PAIR ;
+                             LEFT unit }
+                           { DROP ;
+                             DUP 5 ;
+                             PACK ;
+                             BLAKE2B ;
+                             SWAP ;
+                             COMPARE ;
+                             EQ ;
+                             PUSH string "invalid handle data" ;
+                             PAIR ;
+                             DUP 8 ;
+                             SWAP ;
+                             EXEC ;
+                             RIGHT (pair (pair int (list (pair bytes bytes))) bytes) } } ;
+                     DIG 7 ;
+                     DROP 2 ;
+                     DIG 2 ;
+                     NONE (ticket bytes) ;
+                     DUP 5 ;
+                     CAR ;
+                     CAR ;
+                     CDR ;
+                     DUP 6 ;
+                     CDR ;
+                     PAIR ;
+                     GET_AND_UPDATE ;
+                     IF_NONE { DROP ; PUSH string "unreachable" ; FAILWITH } { PAIR } ;
+                     UNPAIR ;
+                     READ_TICKET ;
+                     CDR ;
+                     CDR ;
+                     DUP 6 ;
+                     CAR ;
+                     CAR ;
+                     CAR ;
+                     SWAP ;
+                     SUB ;
+                     ABS ;
+                     DUP 6 ;
+                     CAR ;
+                     CAR ;
+                     CAR ;
+                     PAIR ;
+                     SWAP ;
+                     SPLIT_TICKET ;
+                     IF_NONE { PUSH string "unreachable" ; FAILWITH } {} ;
+                     UNPAIR ;
+                     DUG 2 ;
+                     DUP 6 ;
+                     CAR ;
+                     CAR ;
+                     CDR ;
+                     DUP 7 ;
+                     CDR ;
+                     PAIR ;
+                     SWAP ;
+                     SOME ;
+                     SWAP ;
+                     UPDATE ;
+                     SWAP ;
+                     DIG 5 ;
+                     CAR ;
+                     CAR ;
+                     PUSH mutez 0 ;
+                     DIG 2 ;
+                     TRANSFER_TOKENS ;
+                     SWAP ;
+                     DIG 3 ;
+                     UNIT ;
+                     DIG 5 ;
+                     CAR ;
+                     CDR ;
+                     CAR ;
+                     SWAP ;
+                     SOME ;
+                     SWAP ;
+                     UPDATE ;
+                     DIG 3 ;
+                     PAIR ;
+                     PAIR ;
+                     NIL operation ;
+                     DIG 2 ;
+                     CONS ;
+                     SWAP ;
+                     DIG 2 ;
+                     PAIR ;
+                     SWAP ;
+                     PAIR } } }
+        Initial storage:
+          (Pair (Pair (Pair (Pair 0x 0) 0x 0x)
+                      { "tz1QnS6DuCtdUdih8zq7gHDkwzwBgDcxZW78" ;
+                        "tz1KsYTRwU26Vwmo8ngs1MhgFeuWjscrHJi7" ;
+                        "tz1e3RxA4pXEVBdEXMBwK9VYV8EM3BytbDdm" })
+                (Pair {} {})
+                {})
+        No delegate for this contract
+        This origination was successfully applied
+        Originated contracts:
+          KT1Je8UXAygZheGbtntubEb9wfAGfvrFh9aK
+        Storage size: 4354 bytes
+        Updated big_maps:
+          New map(10) of type (big_map (pair address bytes) (ticket bytes))
+          New map(9) of type (big_map nat unit)
+          New map(8) of type (big_map bytes unit)
+        Paid storage size diff: 4354 bytes
+        Consumed gas: 2554.875
+        Balance updates:
+          tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb ... -ꜩ1.0885
+          storage fees ........................... +ꜩ1.0885
+          tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb ... -ꜩ0.06425
+          storage fees ........................... +ꜩ0.06425
+
+New contract KT1Je8UXAygZheGbtntubEb9wfAGfvrFh9aK originated.
+The operation has only been included 0 blocks ago.
+We recommend to wait more.
+Use command
+  tezos-client wait for oomo9z6Yr7rGAPVVitYQqj4fvSrvADPB4VaoiWnnkoyNneEybLA to be included --confirmations 1 --branch BLi38iKi3Pu7TdPZYQB4TMRqMKFm3gYjrbbZho7v7Y2vVTyxoPM
+and/or an external block explorer.
+Contract memorized as consensus.
+[35m[1m**************************    Deploying new discovery contract    ********************************[0m
+Originating discovery contract
+Node is bootstrapped.
+Estimated gas: 2217.792 units (will add 100 for safety)
+Estimated storage: 873 bytes added (will add 20 for safety)
+Operation successfully injected in the node.
+Operation hash is 'oonD6EEyRtTKeU6Kim6GfrtqqhnCAxB1E3VKEiuDD4TuypYYW4m'
+Waiting for the operation to be included...
+Operation found in block: BKotyWVwYDznY5pURoRXxSZx3yZFfQamgqdSyjKtmsMH1TEFpZJ (pass: 3, offset: 0)
+This sequence of operations was run:
+  Manager signed operations:
+    From: tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
+    Fee to the baker: ꜩ0.000979
+    Expected counter: 4
+    Gas limit: 2318
+    Storage limit: 893 bytes
+    Balance updates:
+      tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb ... -ꜩ0.000979
+      payload fees(the block proposer) ....... +ꜩ0.000979
+    Origination:
+      From: tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
+      Credit: ꜩ0
+      Script:
+        { parameter
+            (pair (pair (key %key) (int %nonce)) (pair (signature %signature) (string %uri))) ;
+          storage (big_map key_hash (pair int string)) ;
+          code { UNPAIR ;
+                 DUP ;
+                 CAR ;
+                 CAR ;
+                 DUP ;
+                 HASH_KEY ;
+                 DUP 3 ;
+                 CDR ;
+                 CDR ;
+                 DUP 4 ;
+                 CAR ;
+                 CDR ;
+                 DUP 6 ;
+                 DUP 4 ;
+                 GET ;
+                 IF_NONE
+                   { UNIT }
+                   { CAR ;
+                     SWAP ;
+                     DUP ;
+                     DUG 2 ;
+                     COMPARE ;
+                     GT ;
+                     NOT ;
+                     IF { PUSH string "old nonce" ; FAILWITH } { UNIT } } ;
+                 DROP ;
+                 SWAP ;
+                 DUP ;
+                 DUG 2 ;
+                 SWAP ;
+                 DUP ;
+                 DUG 2 ;
+                 PAIR ;
+                 PACK ;
+                 DIG 5 ;
+                 CDR ;
+                 CAR ;
+                 DIG 5 ;
+                 CHECK_SIGNATURE ;
+                 NOT ;
+                 IF { PUSH string "invalid signature" ; FAILWITH } {} ;
+                 DIG 3 ;
+                 DUG 2 ;
+                 PAIR ;
+                 DIG 2 ;
+                 SWAP ;
+                 SOME ;
+                 SWAP ;
+                 UPDATE ;
+                 NIL operation ;
+                 PAIR } }
+        Initial storage:
+          { Elt "tz1KsYTRwU26Vwmo8ngs1MhgFeuWjscrHJi7" (Pair 0 "http://localhost:4441") ;
+            Elt "tz1QnS6DuCtdUdih8zq7gHDkwzwBgDcxZW78" (Pair 0 "http://localhost:4440") ;
+            Elt "tz1e3RxA4pXEVBdEXMBwK9VYV8EM3BytbDdm" (Pair 0 "http://localhost:4442") }
+        No delegate for this contract
+        This origination was successfully applied
+        Originated contracts:
+          KT1Vd4txcRa2rXJdUN8NjddGK2SQn9f3QEqc
+        Storage size: 616 bytes
+        Updated big_maps:
+          New map(11) of type (big_map key_hash (pair int string))
+          Set map(11)[0x00c9df3f418b5cd86a785c61905953c2341c90e8a1] to (Pair 0 "http://localhost:4442")
+          Set map(11)[0x00386f7d12d1a29fe4969fb2b90b2b64b369d553ed] to (Pair 0 "http://localhost:4440")
+          Set map(11)[0x00028e40d3eaa725378bdac807e0c26be84d485a3d] to (Pair 0 "http://localhost:4441")
+        Paid storage size diff: 616 bytes
+        Consumed gas: 2217.792
+        Balance updates:
+          tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb ... -ꜩ0.154
+          storage fees ........................... +ꜩ0.154
+          tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb ... -ꜩ0.06425
+          storage fees ........................... +ꜩ0.06425
+
+New contract KT1Vd4txcRa2rXJdUN8NjddGK2SQn9f3QEqc originated.
+The operation has only been included 0 blocks ago.
+We recommend to wait more.
+Use command
+  tezos-client wait for oonD6EEyRtTKeU6Kim6GfrtqqhnCAxB1E3VKEiuDD4TuypYYW4m to be included --confirmations 1 --branch BL4P218MUDbHcFBLc9Ya13uSWdsYXCUKQLUDJLjr31F9jqMNDid
+and/or an external block explorer.
+Contract memorized as discovery.
+[35m[1m**************************    Getting contract address    ********************************[0m
+[35m[1m**************************    Configuring Deku nodes    ********************************[0m
+[32m[1m### Tezos Contract address: KT1Je8UXAygZheGbtntubEb9wfAGfvrFh9aK ###[0m
+[33m[1m### Warning! ###[0m
+[33m[1m### This script creates a sandbox node and is for development purposes only. ###[0m
+[33m[1m### It does unsafe things like lowering the required Tezos confirmations to limits unreasonable for production. ###[0m
+[33m[1m### Do not use these settings in production! ###[0m
